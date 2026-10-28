@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --background: #0b1426;
+    --accent: #65e0ce;
+    --accent-blue: #819aff;
+    --text: #f5f7ff;
+    --muted: #9aabc5;
+}
+
+/* Configuração geral */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+
+    font-family: 'Manrope', sans-serif;
+    color: var(--text);
+
+    background: radial-gradient(ellipse at center,
+            #1b2c49 0%,
+            #101b30 55%,
+            #080f1c 100%);
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 22px 32px 18px;
+    overscroll-behavior: none;
+}
+
+/* Efeitos animados de fundo */
+.background-effect {
+    position: fixed;
+    z-index: 0;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.17;
+    pointer-events: none;
+    animation: floating 10s ease-in-out infinite alternate;
+}
+
+.effect-one {
+    background: #526fff;
+    top: -130px;
+    left: -100px;
+}
+
+.effect-two {
+    background: #25d9bb;
+    bottom: -150px;
+    right: -80px;
+    animation-delay: -5s;
+}
+
+/* Mantém os elementos acima do fundo */
+.topbar,
+.footer,
+.presentation {
+    position: relative;
+    z-index: 1;
+}
+
+/* Cabeçalho */
+.topbar {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.logo-icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    color: var(--accent);
+    border: 1px solid #65e0ce55;
+    background: #65e0ce10;
+    font-size: 22px;
+}
+
+.logo h1 {
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.logo p {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.counter {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+#currentSlide {
+    color: white;
+    font-size: 18px;
+}
+
+.separator {
+    color: #64748b;
+    margin: 0 7px;
+}
+
+/* Área central da apresentação */
+.presentation {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 65px;
+    overflow: hidden;
+}
+
+/* Moldura do slide */
+.slide-container {
+    width: 100%;
+    max-width: 1280px;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+
+    position: relative;
+    flex-shrink: 1;
+    overflow: hidden;
+
+    border-radius: 17px;
+    background: white;
+    border: 1px solid #ffffff30;
+    box-shadow: 0 25px 80px #0008;
+}
+
+/* Slides */
+.slide {
+    display: none;
+
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background: white;
+}
+
+.slide.active {
+    display: block;
+    animation: slideAppear 0.45s ease both;
+}
+
+#pdfCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
+    background: white;
+    pointer-events: none;
+}
+
+
+/* Slide do vídeo */
+.video-slide {
+    background: #050914;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.video-slide.active {
+    display: flex;
+}
+
+/* Vídeo centralizado e ajustado ao espaço disponível */
+#presentationVideo {
+    display: block;
+    position: relative;
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: 900px;
+    max-height: 506px;
+
+    object-fit: contain;
+    object-position: center;
+
+    background: #050914;
+    border: none;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 700px) {
+    .video-slide {
+        padding: 10px;
+    }
+
+    #presentationVideo {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        aspect-ratio: 16 / 9;
+    }
+}
+
+
+/* Botões de navegação */
+.nav-button {
+    position: absolute;
+    z-index: 5;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+    border: 1px solid #ffffff35;
+    background: #ffffff0d;
+    backdrop-filter: blur(12px);
+
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.nav-button:hover {
+    background: #65e0ce25;
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.nav-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.nav-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+/* Rodapé */
+.footer {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-top: 18px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 3px;
+    background: #ffffff18;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 5.55%;
+    background: linear-gradient(90deg,
+            var(--accent),
+            var(--accent-blue));
+    transition: width 0.4s ease;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+    padding-top: 13px;
+}
+
+.footer p {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+kbd {
+    font-family: inherit;
+    padding: 3px 6px;
+    border: 1px solid #ffffff30;
+    border-radius: 5px;
+    background: #ffffff0a;
+    color: white;
+}
+
+/* Indicadores dos slides */
+.slide-dots {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+
+    max-width: 60%;
+    min-width: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+
+    padding: 5px;
+    scrollbar-width: none;
+}
+
+.slide-dots::-webkit-scrollbar {
+    display: none;
+}
+
+.dot {
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border: none;
+    border-radius: 10px;
+    background: #71819b;
+    cursor: pointer;
+    transition:
+        width 0.3s ease,
+        background 0.3s ease;
+}
+
+.dot.active {
+    width: 23px;
+    background: var(--accent);
+}
+
+/* Animações */
+@keyframes slideAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.99) translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes floating {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(40px, 30px);
+    }
+}
+
+/* Telas menores */
+@media (max-width: 700px) {
+    body {
+        padding: 14px;
+    }
+
+    .topbar {
+        margin-bottom: 14px;
+    }
+
+    .logo {
+        gap: 8px;
+    }
+
+    .logo h1 {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .logo p {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+    }
+
+    .counter {
+        font-size: 12px;
+    }
+
+    #currentSlide {
+        font-size: 16px;
+    }
+
+    .presentation {
+        padding: 0 0 55px;
+    }
+
+    .slide-container {
+        border-radius: 10px;
+    }
+
+    .nav-button {
+        top: auto;
+        bottom: 0;
+        transform: none;
+
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .nav-button:hover {
+        transform: scale(1.05);
+    }
+
+    .nav-button:active {
+        transform: scale(0.95);
+    }
+
+    .prev {
+        left: calc(50% - 54px);
+    }
+
+    .next {
+        right: calc(50% - 54px);
+    }
+
+    .footer {
+        margin-top: 12px;
+    }
+
+    .footer-content {
+        align-items: center;
+        gap: 8px;
+    }
+
+    .footer p {
+        font-size: 9px;
+    }
+
+    .slide-dots {
+        max-width: 55%;
+        gap: 4px;
+    }
+
+    .dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    .dot.active {
+        width: 16px;
+    }
+}
+
+/* Telas com pouca altura */
+@media (max-height: 520px) {
+    body {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .topbar {
+        margin-bottom: 8px;
+    }
+
+    .logo-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .presentation {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .footer {
+        margin-top: 8px;
+    }
+
+    .footer-content {
+        padding-top: 6px;
+    }
+}
+
+/* Reduz movimento se essa opção estiver ativada no dispositivo */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

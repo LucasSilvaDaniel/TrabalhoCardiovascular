@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1426">
+
+    <title>Procedimentos Cardiovasculares</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-effect effect-one"></div>
+    <div class="background-effect effect-two"></div>
+
+    <header class="topbar">
+        <div class="logo">
+            <div class="logo-icon">♥</div>
+            <div>
+                <h1>PROCEDIMENTOS</h1>
+                <p>CARDIOVASCULARES</p>
+            </div>
+        </div>
+
+        <div class="counter">
+            <span id="currentSlide">01</span>
+            <span class="separator">/</span>
+            <span id="totalSlides">17</span>
+        </div>
+    </header>
+
+    <main class="presentation">
+
+        <button
+            class="nav-button prev"
+            id="prevButton"
+            type="button"
+            aria-label="Slide anterior"
+            title="Slide anterior"
+        >&#8592;</button>
+
+        <div class="slide-container" id="slideContainer">
+
+            <!-- Slides do PDF -->
+            <section class="slide active" id="pdfSlide">
+                <canvas id="pdfCanvas"></canvas>
+            </section>
+
+            <!-- Slide 16: vídeo executável -->
+            <section class="slide video-slide" id="videoSlide">
+                <video
+                    id="presentationVideo"
+                    controls
+                    preload="metadata"
+                    playsinline
+                >
+                    <source src="assets/video.mp4" type="video/mp4">
+                    Seu navegador não suporta a reprodução deste vídeo.
+                </video>
+            </section>
+
+        </div>
+
+        <button
+            class="nav-button next"
+            id="nextButton"
+            type="button"
+            aria-label="Próximo slide"
+            title="Próximo slide"
+        >&#8594;</button>
+
+    </main>
+
+    <footer class="footer">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="footer-content">
+            <p>
+                <kbd>←</kbd>
+                <kbd>→</kbd>
+                Navegar
+                <span style="margin-left: 14px;"></span>
+                <kbd>F</kbd>
+                Tela cheia
+            </p>
+
+            <div
+                class="slide-dots"
+                id="slideDots"
+                aria-label="Indicadores dos slides"
+            ></div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
